@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Colors */
+  --color-brand-50: #fff7ed;
+  --color-brand-100: #ffedd5;
+  --color-brand-200: #fed7aa;
+  --color-brand-300: #fdba74;
+  --color-brand-400: #fb923c;
+  --color-brand-500: #f97316;
+  --color-brand-600: #ea580c;
+  --color-brand-700: #c2410c;
+  --color-brand-800: #9a3412;
+  --color-brand-900: #7c2d12;
+  --color-brand-950: #431407;
+
+  /* Font Family */
+  --font-sans: 'Inter', 'Plus Jakarta Sans', sans-serif;
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply font-sans antialiased;
+  }
+}
+
+/* Swiper custom styles */
+.swiper-button-next,
+.swiper-button-prev {
+  @apply text-brand-500 hover:text-brand-600;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  @apply text-2xl font-bold;
+}
+
+.swiper-pagination-bullet {
+  @apply bg-brand-300;
+}
+
+.swiper-pagination-bullet-active {
+  @apply bg-brand-500;
+}
