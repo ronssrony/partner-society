@@ -10,17 +10,19 @@ const stats = [
 ]
 
 // Create counters for each stat
-const counter1 = useCounter(400000, 2000)
-const counter2 = useCounter(55, 1500)
-const counter3 = useCounter(150, 1800)
-const counter4 = useCounter(95, 1600)
+const counters = stats.map(stat => useCounter(stat.value, 2000))
 
-const counters = [counter1, counter2, counter3, counter4]
+const hasAnimated = ref(false)
 
-const statRefs = ref<HTMLElement[]>([])
-
-const handleVisible = (index: number) => {
-  counters[index].animate()
+const handleVisible = () => {
+  if (!hasAnimated.value) {
+    hasAnimated.value = true
+    counters.forEach((counter, index) => {
+      setTimeout(() => {
+        counter.animate()
+      }, index * 100)
+    })
+  }
 }
 </script>
 
@@ -45,21 +47,22 @@ const handleVisible = (index: number) => {
         </p>
       </div>
 
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+      <div
+        v-motion
+        :initial="{ opacity: 0, y: 30 }"
+        :visible-once="{
+          opacity: 1,
+          y: 0,
+          transition: {
+            duration: 600,
+            onComplete: handleVisible
+          }
+        }"
+        class="grid grid-cols-2 lg:grid-cols-4 gap-8"
+      >
         <div
           v-for="(stat, index) in stats"
           :key="stat.label"
-          v-motion
-          :initial="{ opacity: 0, y: 50 }"
-          :visible-once="{
-            opacity: 1,
-            y: 0,
-            transition: {
-              duration: 600,
-              delay: index * 100,
-              onComplete: () => handleVisible(index)
-            }
-          }"
           class="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
         >
           <div class="inline-flex items-center justify-center w-16 h-16 bg-brand-100 rounded-full mb-4">
