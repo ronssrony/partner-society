@@ -1,16 +1,14 @@
 <template>
   <div class="min-h-screen bg-white">
     <Navbar />
-    <HeroSection />
-    <PartnerMarquee />
-    <RecentActivities />
-    <SchoolStats />
-    <NetworkCoverage />
-    <DigitalTimeline />
-    <ProgramsGrid />
-    <TestimonialsCarousel />
-    <ImpactStats />
-    <CTASection />
+    <HeroPartnerSociety />
+    <StatsSection />
+    <ProgramsSection />
+    <EventsActivities />
+    <NoticeSection />
+    <SchoolListSection />
+    <GallerySection />
+    <ContactSection />
     <Footer />
   </div>
 </template>
