@@ -85,25 +85,27 @@ useHead({
     <Navbar />
 
     <!-- Page Header -->
-    <section class="pt-32 pb-16 bg-gradient-to-br from-purple-50 to-purple-100">
+    <section class="pt-28 pb-10 bg-gradient-to-br from-purple-50 via-purple-100 to-purple-50">
       <div class="container-custom text-center">
-        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+        <div class="inline-block mb-4 px-4 py-2 bg-[#6B46C1]/10 rounded-full">
+          <span class="text-[#6B46C1] font-semibold">Career</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-3">
           Career <span class="text-[#6B46C1]">Opportunities</span>
         </h1>
-        <p class="text-xl text-gray-600 font-bengali">আমাদের সাথে যোগ দিন</p>
-        <p class="mt-4 text-gray-600">Join our team and make a difference in education</p>
+        <p class="text-lg text-gray-600 font-bengali">আমাদের সাথে যোগ দিন</p>
+        <p class="mt-2 text-gray-600">Join our team and make a difference in education</p>
       </div>
     </section>
 
     <!-- Job Circulars -->
-    <section class="section-padding bg-white">
+    <section class="py-12 bg-white">
       <div class="container-custom">
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div
             v-for="circular in circulars"
             :key="circular.id"
-            class="card p-6 cursor-pointer hover:shadow-xl transition-all duration-300 group"
-            @click="openDetails(circular)"
+            class="card p-6 hover:shadow-xl transition-all duration-300 group"
           >
             <!-- Header -->
             <div class="flex items-start justify-between mb-4">
@@ -148,10 +150,22 @@ useHead({
               {{ circular.description }}
             </p>
 
-            <!-- View Details Button -->
-            <button class="w-full bg-[#6B46C1] hover:bg-[#553399] text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm font-bengali">
-              বিস্তারিত দেখুন
-            </button>
+            <!-- Action Buttons -->
+            <div class="flex gap-2">
+              <button
+                @click.stop="openDetails(circular)"
+                class="flex-1 border-2 border-[#6B46C1] text-[#6B46C1] hover:bg-[#6B46C1] hover:text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm font-bengali"
+              >
+                বিস্তারিত
+              </button>
+              <a
+                :href="`/career/apply/${circular.id}`"
+                @click.stop
+                class="flex-1 bg-[#6B46C1] hover:bg-[#553399] text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm font-bengali text-center"
+              >
+                আবেদন করুন
+              </a>
+            </div>
           </div>
         </div>
       </div>

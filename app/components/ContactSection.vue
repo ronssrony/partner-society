@@ -57,16 +57,16 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <section id="contact" class="section-padding bg-white">
+  <section id="contact" class="py-12 md:py-16 bg-white">
     <div class="container-custom">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+      <div class="text-center mb-10 md:mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
           Contact <span class="text-[#6B46C1]">Us</span>
         </h2>
-        <p class="text-xl text-gray-600 font-bengali">যোগাযোগ করুন</p>
+        <p class="text-lg md:text-xl text-gray-600 font-bengali">যোগাযোগ করুন</p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-8 md:mb-12">
         <!-- Contact Information -->
         <div>
           <h3 class="text-2xl font-bold text-gray-900 mb-6 font-bengali">যোগাযোগের ঠিকানা</h3>

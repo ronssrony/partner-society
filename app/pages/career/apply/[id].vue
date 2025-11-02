@@ -79,18 +79,21 @@ useHead({
     <Navbar />
 
     <!-- Page Header -->
-    <section class="pt-32 pb-16 bg-gradient-to-br from-purple-50 to-purple-100">
+    <section class="pt-28 pb-10 bg-gradient-to-br from-purple-50 via-purple-100 to-purple-50">
       <div class="container-custom text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-3">
+        <div class="inline-block mb-4 px-4 py-2 bg-[#6B46C1]/10 rounded-full">
+          <span class="text-[#6B46C1] font-semibold">Job Application</span>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
           Apply for <span class="text-[#6B46C1]">Position</span>
         </h1>
-        <p class="text-2xl text-gray-700 font-semibold mb-2">{{ selectedJob.title }}</p>
-        <p class="text-xl text-gray-600 font-bengali">{{ selectedJob.titleBengali }}</p>
+        <p class="text-xl text-gray-700 font-semibold mb-2">{{ selectedJob.title }}</p>
+        <p class="text-lg text-gray-600 font-bengali">{{ selectedJob.titleBengali }}</p>
       </div>
     </section>
 
     <!-- Application Form -->
-    <section class="section-padding bg-white">
+    <section class="py-12 bg-gray-50">
       <div class="container-custom max-w-3xl">
         <!-- Success Message -->
         <transition

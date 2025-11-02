@@ -61,17 +61,48 @@ const handleNavClick = (event: Event, href: string) => {
 
     // Check if we're not on the home page
     if (window.location.pathname !== '/') {
-      // Navigate to home first, then scroll
-      window.location.href = '/' + href
+      // Store the hash to scroll to after navigation
+      sessionStorage.setItem('scrollToSection', href)
+      // Navigate to home
+      window.location.href = '/'
     } else {
-      // Already on home, just scroll
+      // Already on home, just scroll with offset
       const element = document.querySelector(href)
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
+        const navbarHeight = 100 // Offset for fixed navbar
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+        const offsetPosition = elementPosition - navbarHeight
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        })
       }
     }
   }
 }
+
+// Check for pending scroll on page load
+onMounted(() => {
+  const scrollToSection = sessionStorage.getItem('scrollToSection')
+  if (scrollToSection) {
+    sessionStorage.removeItem('scrollToSection')
+    // Wait for page to fully render
+    setTimeout(() => {
+      const element = document.querySelector(scrollToSection)
+      if (element) {
+        const navbarHeight = 100 // Offset for fixed navbar
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+        const offsetPosition = elementPosition - navbarHeight
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        })
+      }
+    }, 100)
+  }
+})
 
 // Close dropdown when clicking outside
 onMounted(() => {
@@ -111,10 +142,13 @@ onUnmounted(() => {
       <div class="flex items-center justify-between h-20">
         <!-- Logo -->
         <div class="flex-shrink-0">
-          <a href="#home" class="flex items-center gap-3">
+          <a href="/" class="flex items-center gap-3">
             <img src="/logo.jpg" alt="Partner Society Logo" class="h-14 w-auto" />
             <div class="flex flex-col">
-              <span class="text-xl font-bold text-[#6B46C1]">Partner Society</span>
+              <span class="text-xl font-bold">
+                <span class="text-[#EF4444]">Partner</span>
+                <span class="text-[#6B46C1]"> Society</span>
+              </span>
               <span class="text-xs text-gray-600 font-bengali">আধুনিক শিক্ষা, সবার জন্য</span>
             </div>
           </a>

@@ -32,13 +32,13 @@ const programs = [
 </script>
 
 <template>
-  <section id="programs" class="section-padding bg-white">
+  <section id="programs" class="py-12 md:py-16 bg-white">
     <div class="container-custom">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+      <div class="text-center mb-10 md:mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
           What <span class="text-[#6B46C1]">We Do</span>
         </h2>
-        <p class="text-xl text-gray-600 font-bengali">আমাদের কার্যক্রম</p>
+        <p class="text-lg md:text-xl text-gray-600 font-bengali">আমাদের কার্যক্রম</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -46,7 +46,7 @@ const programs = [
           v-for="program in programs"
           :key="program.id"
           :id="program.id"
-          class="card p-8 hover:scale-105 transition-all duration-300 border-2 border-transparent hover:border-[#6B46C1] group"
+          class="card p-6 md:p-8 hover:scale-105 transition-all duration-300 border border-gray-200 hover:border-[#6B46C1] group"
         >
           <!-- Icon -->
           <div class="text-6xl mb-4 transform group-hover:scale-110 transition-transform duration-300">

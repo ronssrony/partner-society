@@ -31,17 +31,17 @@ const prevImage = () => {
 </script>
 
 <template>
-  <section id="gallery" class="section-padding bg-gray-50">
+  <section id="gallery" class="py-12 md:py-16 bg-gray-50">
     <div class="container-custom">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+      <div class="text-center mb-10 md:mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
           Our <span class="text-[#6B46C1]">Gallery</span>
         </h2>
-        <p class="text-xl text-gray-600 font-bengali">আমাদের গ্যালারি</p>
+        <p class="text-lg md:text-xl text-gray-600 font-bengali">আমাদের গ্যালারি</p>
       </div>
 
       <!-- Gallery Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         <div
           v-for="(image, index) in images"
           :key="index"

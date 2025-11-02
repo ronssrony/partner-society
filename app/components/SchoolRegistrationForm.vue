@@ -71,15 +71,8 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <section id="registration" class="section-padding bg-white">
+  <section id="registration" class=" ">
     <div class="container-custom">
-      <div class="text-center mb-16">
-        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          School <span class="text-[#6B46C1]">Registration</span>
-        </h2>
-        <p class="text-xl text-gray-600 font-bengali">স্কুল রেজিস্ট্রেশন</p>
-      </div>
-
       <div class="max-w-3xl mx-auto">
         <!-- Success Message -->
         <transition
