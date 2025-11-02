@@ -124,7 +124,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section id="home" class="relative min-h-[85vh] md:min-h-[90vh] bg-gradient-to-br from-purple-50 via-purple-100 to-purple-50 pt-20 md:pt-24 pb-12 md:pb-16">
+  <section id="home" class="relative min-h-[85vh] md:min-h-[90vh] bg-gradient-to-br from-purple-50 via-purple-100 to-purple-50 pt-24 md:pt-24 pb-12 md:pb-16 ">
     <div class="container-custom">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <!-- Left Content -->

@@ -1,3 +1,4 @@
+
 <script setup lang="ts">
 import { ref } from 'vue'
 
@@ -103,9 +104,9 @@ useHead({
       <div class="container-custom">
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div
-            v-for="circular in circulars"
-            :key="circular.id"
-            class="card p-6 hover:shadow-xl transition-all duration-300 group"
+              v-for="circular in circulars"
+              :key="circular.id"
+              class="card p-6 hover:shadow-xl transition-all duration-300 group"
           >
             <!-- Header -->
             <div class="flex items-start justify-between mb-4">
@@ -153,18 +154,18 @@ useHead({
             <!-- Action Buttons -->
             <div class="flex gap-2">
               <button
-                @click.stop="openDetails(circular)"
-                class="flex-1 border-2 border-[#6B46C1] text-[#6B46C1] hover:bg-[#6B46C1] hover:text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm font-bengali"
+                  @click.stop="openDetails(circular)"
+                  class="flex-1 border-2 border-[#6B46C1] text-[#6B46C1] hover:bg-[#6B46C1] hover:text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm font-bengali"
               >
                 বিস্তারিত
               </button>
-              <a
-                :href="`/career/apply/${circular.id}`"
-                @click.stop
-                class="flex-1 bg-[#6B46C1] hover:bg-[#553399] text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm font-bengali text-center"
+              <nuxt-link
+                  :to="`/career/apply/${circular.id}`"
+                  @click.stop
+                  class="flex-1 bg-[#6B46C1] hover:bg-[#553399] text-white px-4 py-2 rounded-lg font-semibold transition-colors text-sm font-bengali text-center"
               >
                 আবেদন করুন
-              </a>
+              </nuxt-link>
             </div>
           </div>
         </div>
@@ -173,21 +174,21 @@ useHead({
 
     <!-- Circular Details Modal -->
     <transition
-      enter-active-class="transition duration-300 ease-out"
-      enter-from-class="opacity-0"
-      enter-to-class="opacity-100"
-      leave-active-class="transition duration-200 ease-in"
-      leave-from-class="opacity-100"
-      leave-to-class="opacity-0"
+        enter-active-class="transition duration-300 ease-out"
+        enter-from-class="opacity-0"
+        enter-to-class="opacity-100"
+        leave-active-class="transition duration-200 ease-in"
+        leave-from-class="opacity-100"
+        leave-to-class="opacity-0"
     >
       <div
-        v-if="selectedCircular"
-        @click="closeDetails"
-        class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4 overflow-y-auto"
+          v-if="selectedCircular"
+          @click="closeDetails"
+          class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4 overflow-y-auto"
       >
         <div
-          @click.stop
-          class="bg-white rounded-2xl max-w-3xl w-full my-8 overflow-hidden shadow-2xl"
+            @click.stop
+            class="bg-white rounded-2xl max-w-3xl w-full my-8 overflow-hidden shadow-2xl"
         >
           <!-- Modal Header -->
           <div class="bg-gradient-to-r from-[#6B46C1] to-[#8B5CF6] p-8 text-white">
@@ -197,8 +198,8 @@ useHead({
                 <h3 class="text-2xl font-bengali">{{ selectedCircular.titleBengali }}</h3>
               </div>
               <button
-                @click="closeDetails"
-                class="bg-white/20 hover:bg-white/30 rounded-full p-2 transition-colors"
+                  @click="closeDetails"
+                  class="bg-white/20 hover:bg-white/30 rounded-full p-2 transition-colors"
               >
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -268,9 +269,9 @@ useHead({
               <h4 class="text-xl font-bold text-gray-900 mb-3 font-bengali">যোগ্যতা ও প্রয়োজনীয়তা</h4>
               <ul class="space-y-2">
                 <li
-                  v-for="(req, index) in selectedCircular.requirements"
-                  :key="index"
-                  class="flex items-start gap-3 text-gray-700 font-bengali"
+                    v-for="(req, index) in selectedCircular.requirements"
+                    :key="index"
+                    class="flex items-start gap-3 text-gray-700 font-bengali"
                 >
                   <svg class="w-5 h-5 text-[#6B46C1] flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
@@ -281,12 +282,12 @@ useHead({
             </div>
 
             <!-- Apply Button -->
-            <a
-              :href="`/career/apply/${selectedCircular.id}`"
-              class="block w-full bg-[#6B46C1] hover:bg-[#553399] text-white px-6 py-4 rounded-lg font-semibold text-center transition-colors font-bengali text-lg"
+            <nuxt-link
+                :to="`/career/apply/${selectedCircular.id}`"
+                class="block w-full bg-[#6B46C1] hover:bg-[#553399] text-white px-6 py-4 rounded-lg font-semibold text-center transition-colors font-bengali text-lg"
             >
               আবেদন করুন
-            </a>
+            </nuxt-link>
           </div>
         </div>
       </div>
