@@ -2,7 +2,6 @@
   <div class="min-h-screen bg-white">
     <Navbar />
     <HeroPartnerSociety />
-    <StatsSection />
     <ProgramsSection />
     <EventsActivities />
     <NoticeSection />

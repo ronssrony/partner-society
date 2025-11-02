@@ -13,6 +13,25 @@ const quickLinks = [
   { name: 'Career', href: '/career' },
   { name: 'Contact', href: '#contact' },
 ]
+
+// Handle navigation with hash links
+const handleNavClick = (event: Event, href: string) => {
+  if (href.startsWith('#')) {
+    event.preventDefault()
+
+    // Check if we're not on the home page
+    if (window.location.pathname !== '/') {
+      // Navigate to home first, then scroll
+      window.location.href = '/' + href
+    } else {
+      // Already on home, just scroll
+      const element = document.querySelector(href)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+  }
+}
 </script>
 
 <template>
@@ -39,7 +58,11 @@ const quickLinks = [
           <h3 class="text-lg font-bold text-white mb-4">Quick Links</h3>
           <ul class="space-y-2">
             <li v-for="link in quickLinks" :key="link.name">
-              <a :href="link.href" class="text-gray-400 hover:text-[#6B46C1] transition-colors">
+              <a
+                :href="link.href"
+                @click="(e) => handleNavClick(e, link.href)"
+                class="text-gray-400 hover:text-[#6B46C1] transition-colors"
+              >
                 {{ link.name }}
               </a>
             </li>

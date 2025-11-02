@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 // Hero images - using images from public/images
 const heroImages = [
@@ -11,17 +11,116 @@ const heroImages = [
 ]
 
 const currentImageIndex = ref(0)
+const isHovered = ref(false)
+const isPaused = ref(false)
+let autoplayInterval: ReturnType<typeof setInterval> | null = null
 
-onMounted(() => {
-  // Auto-slide images
-  setInterval(() => {
-    currentImageIndex.value = (currentImageIndex.value + 1) % heroImages.length
+// Stats with counters
+const stats = [
+  {
+    id: 1,
+    end: 8,
+    label: 'Years',
+    labelBengali: 'বছরের অভিজ্ঞতা',
+    icon: '📅',
+    color: '#6B46C1'
+  },
+  {
+    id: 2,
+    end: 8,
+    label: 'Schools',
+    labelBengali: 'স্কুল',
+    icon: '🏫',
+    color: '#8B5CF6'
+  },
+  {
+    id: 3,
+    end: 500,
+    suffix: '+',
+    label: 'Students',
+    labelBengali: 'শিক্ষার্থী',
+    icon: '👨‍🎓',
+    color: '#A78BFA'
+  }
+]
+
+const counters = ref(stats.map(() => 0))
+const hasAnimated = ref(false)
+
+const animateValue = (index: number, start: number, end: number, duration: number) => {
+  const range = end - start
+  const increment = end > start ? 1 : -1
+  const stepTime = Math.abs(Math.floor(duration / range))
+
+  let current = start
+  const timer = setInterval(() => {
+    current += increment
+    counters.value[index] = current
+
+    if (current === end) {
+      clearInterval(timer)
+    }
+  }, stepTime)
+}
+
+// Start autoplay
+const startAutoplay = () => {
+  if (autoplayInterval) clearInterval(autoplayInterval)
+  autoplayInterval = setInterval(() => {
+    if (!isPaused.value) {
+      nextSlide()
+    }
   }, 4000)
-})
+}
+
+// Stop autoplay
+const stopAutoplay = () => {
+  if (autoplayInterval) {
+    clearInterval(autoplayInterval)
+    autoplayInterval = null
+  }
+}
+
+const nextSlide = () => {
+  currentImageIndex.value = (currentImageIndex.value + 1) % heroImages.length
+}
+
+const prevSlide = () => {
+  currentImageIndex.value = (currentImageIndex.value - 1 + heroImages.length) % heroImages.length
+}
 
 const goToSlide = (index: number) => {
   currentImageIndex.value = index
 }
+
+const handleMouseEnter = () => {
+  isHovered.value = true
+  isPaused.value = true
+}
+
+const handleMouseLeave = () => {
+  isHovered.value = false
+  isPaused.value = false
+}
+
+onMounted(() => {
+  // Start autoplay
+  startAutoplay()
+
+  // Animate counters
+  if (!hasAnimated.value) {
+    hasAnimated.value = true
+    stats.forEach((stat, index) => {
+      setTimeout(() => {
+        animateValue(index, 0, stat.end, 2000)
+      }, index * 200)
+    })
+  }
+})
+
+onUnmounted(() => {
+  stopAutoplay()
+})
 </script>
 
 <template>
@@ -36,6 +135,9 @@ const goToSlide = (index: number) => {
               Partner Society BD একটি <span class="text-[#6B46C1] font-bold">কিন্ডারগার্ডেন সোসাইটি</span>, আধুনিক শিক্ষামূলক প্রতিষ্ঠান, মেধাবী শিক্ষার্থীদের বৃত্তিমূলক কার্যক্রম পরিচালনা করা, বিভিন্ন সহায়ক বই প্রকাশ এবং দক্ষতা উন্নয়নের মাধ্যমে শিক্ষার গুণগত মান নিশ্চিত করাই আমাদের মূল লক্ষ্য!
             </p>
           </div>
+
+          <!-- Stats Counter -->
+
 
           <!-- CTA Buttons -->
           <div class="flex flex-wrap gap-4">
@@ -52,20 +154,27 @@ const goToSlide = (index: number) => {
               Apply Now
             </a>
           </div>
+
+
         </div>
 
         <!-- Right Side - Image Slider -->
-        <div class="relative">
+        <div
+          class="relative group"
+          @mouseenter="handleMouseEnter"
+          @mouseleave="handleMouseLeave"
+        >
           <div class="rounded-2xl overflow-hidden shadow-2xl">
             <!-- Image Container -->
-            <div class="relative h-[400px] md:h-[500px] lg:h-[600px]">
+            <div class="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
               <!-- Images -->
               <div
                 v-for="(image, index) in heroImages"
                 :key="index"
                 :class="[
-                  'absolute inset-0 transition-opacity duration-1000 ease-in-out',
-                  currentImageIndex === index ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                  'absolute inset-0 transition-transform duration-700 ease-in-out',
+                  currentImageIndex === index ? 'translate-x-0 z-10' :
+                  currentImageIndex > index ? '-translate-x-full z-0' : 'translate-x-full z-0'
                 ]"
               >
                 <img
@@ -76,6 +185,38 @@ const goToSlide = (index: number) => {
                 <!-- Gradient Overlay -->
                 <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
               </div>
+
+              <!-- Navigation Buttons - Show on Hover -->
+              <transition
+                enter-active-class="transition duration-300 ease-out"
+                enter-from-class="opacity-0"
+                enter-to-class="opacity-100"
+                leave-active-class="transition duration-200 ease-in"
+                leave-from-class="opacity-100"
+                leave-to-class="opacity-0"
+              >
+                <div v-show="isHovered" class="absolute inset-0 z-20 flex items-center justify-between px-4">
+                  <!-- Previous Button -->
+                  <button
+                    @click="prevSlide"
+                    class="bg-white/90 hover:bg-white text-[#6B46C1] rounded-full p-3 shadow-lg transform hover:scale-110 transition-all duration-300"
+                  >
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                  </button>
+
+                  <!-- Next Button -->
+                  <button
+                    @click="nextSlide"
+                    class="bg-white/90 hover:bg-white text-[#6B46C1] rounded-full p-3 shadow-lg transform hover:scale-110 transition-all duration-300"
+                  >
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                  </button>
+                </div>
+              </transition>
 
               <!-- Pagination Dots -->
               <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-3 z-20">
@@ -97,6 +238,39 @@ const goToSlide = (index: number) => {
           <!-- Decorative Elements -->
           <div class="absolute -top-6 -right-6 w-24 h-24 bg-[#6B46C1] rounded-full opacity-20 blur-2xl"></div>
           <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-purple-300 rounded-full opacity-20 blur-2xl"></div>
+        </div>
+      </div>
+      <div class="grid grid-cols-3 gap-4 py-6 justify-center mx-auto max-w-4xl">
+        <div
+            v-for="(stat, index) in stats"
+            :key="stat.id"
+            class="text-center group"
+        >
+          <!-- Icon Circle -->
+          <div
+              class="w-16 h-16 mx-auto mb-3 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300"
+              :style="{ backgroundColor: stat.color + '20' }"
+          >
+            <span class="text-3xl">{{ stat.icon }}</span>
+          </div>
+
+          <!-- Counter -->
+          <div class="mb-1">
+                <span
+                    class="text-3xl md:text-4xl font-bold"
+                    :style="{ color: stat.color }"
+                >
+                  {{ counters[index] }}{{ stat.suffix || '' }}
+                </span>
+          </div>
+
+          <!-- Label -->
+          <p class="text-gray-600 font-semibold text-xs uppercase tracking-wide mb-1">
+            {{ stat.label }}
+          </p>
+          <p class="text-gray-500 font-bengali text-xs">
+            {{ stat.labelBengali }}
+          </p>
         </div>
       </div>
     </div>

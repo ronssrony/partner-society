@@ -53,6 +53,26 @@ const closeDropdown = () => {
   activeDropdown.value = null
 }
 
+// Handle navigation with hash links
+const handleNavClick = (event: Event, href: string) => {
+  if (href.startsWith('#')) {
+    event.preventDefault()
+    closeDropdown()
+
+    // Check if we're not on the home page
+    if (window.location.pathname !== '/') {
+      // Navigate to home first, then scroll
+      window.location.href = '/' + href
+    } else {
+      // Already on home, just scroll
+      const element = document.querySelector(href)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+  }
+}
+
 // Close dropdown when clicking outside
 onMounted(() => {
   const handleClickOutside = (event: MouseEvent) => {
@@ -110,6 +130,7 @@ onUnmounted(() => {
             <a
               v-if="!link.hasDropdown"
               :href="link.href"
+              @click="(e) => handleNavClick(e, link.href)"
               class="text-base font-medium text-gray-700 hover:text-[#6B46C1] transition-colors py-2"
             >
               {{ link.name }}
@@ -146,7 +167,7 @@ onUnmounted(() => {
                   v-for="item in link.items"
                   :key="item.name"
                   :href="item.href"
-                  @click="closeDropdown"
+                  @click="(e) => { handleNavClick(e, item.href); closeDropdown(); }"
                   class="block px-4 py-3 text-sm text-gray-700 hover:bg-[#6B46C1] hover:text-white transition-colors"
                 >
                   {{ item.name }}
@@ -195,8 +216,8 @@ onUnmounted(() => {
             <a
               v-if="!link.hasDropdown"
               :href="link.href"
+              @click="(e) => { handleNavClick(e, link.href); toggleMobileMenu(); }"
               class="block px-4 py-3 text-base font-medium text-gray-700 hover:bg-[#6B46C1]/10 hover:text-[#6B46C1] rounded-lg transition-colors"
-              @click="toggleMobileMenu"
             >
               {{ link.name }}
             </a>
@@ -229,8 +250,8 @@ onUnmounted(() => {
                     v-for="item in link.items"
                     :key="item.name"
                     :href="item.href"
+                    @click="(e) => { handleNavClick(e, item.href); toggleMobileMenu(); }"
                     class="block px-4 py-2 text-sm text-gray-600 hover:bg-[#6B46C1]/10 hover:text-[#6B46C1] rounded-lg transition-colors"
-                    @click="toggleMobileMenu"
                   >
                     {{ item.name }}
                   </a>
