@@ -71,29 +71,28 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <section id="registration" class=" ">
-    <div class="container-custom">
-      <div class="max-w-3xl mx-auto">
-        <!-- Success Message -->
-        <transition
-          enter-active-class="transition duration-300 ease-out"
-          enter-from-class="opacity-0 scale-95"
-          enter-to-class="opacity-100 scale-100"
-          leave-active-class="transition duration-200 ease-in"
-          leave-from-class="opacity-100 scale-100"
-          leave-to-class="opacity-0 scale-95"
+  <section id="registration" class="">
+    <div class="max-w-3xl mx-auto">
+      <!-- Success Message -->
+      <transition
+        enter-active-class="transition duration-300 ease-out"
+        enter-from-class="opacity-0 scale-95"
+        enter-to-class="opacity-100 scale-100"
+        leave-active-class="transition duration-200 ease-in"
+        leave-from-class="opacity-100 scale-100"
+        leave-to-class="opacity-0 scale-95"
+      >
+        <div
+          v-if="isSuccess"
+          class="mb-4 md:mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg font-bengali"
         >
-          <div
-            v-if="isSuccess"
-            class="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg font-bengali"
-          >
-            আপনার আবেদন সফলভাবে জমা হয়েছে। আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।
-          </div>
-        </transition>
+          আপনার আবেদন সফলভাবে জমা হয়েছে। আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।
+        </div>
+      </transition>
 
-        <form @submit.prevent="handleSubmit" class="card p-8">
+      <form @submit.prevent="handleSubmit" class="card p-4 md:p-8">
           <!-- Name -->
-          <div class="mb-6">
+          <div class="mb-4 md:mb-6">
             <label class="block text-gray-700 font-semibold mb-2 font-bengali">
               নাম <span class="text-red-500">*</span>
             </label>
@@ -107,7 +106,7 @@ const handleSubmit = async () => {
           </div>
 
           <!-- Email -->
-          <div class="mb-6">
+          <div class="mb-4 md:mb-6">
             <label class="block text-gray-700 font-semibold mb-2 font-bengali">
               ইমেইল <span class="text-red-500">*</span>
             </label>
@@ -121,7 +120,7 @@ const handleSubmit = async () => {
           </div>
 
           <!-- Phone -->
-          <div class="mb-6">
+          <div class="mb-4 md:mb-6">
             <label class="block text-gray-700 font-semibold mb-2 font-bengali">
               ফোন নম্বর <span class="text-red-500">*</span>
             </label>
@@ -135,7 +134,7 @@ const handleSubmit = async () => {
           </div>
 
           <!-- School Name -->
-          <div class="mb-6">
+          <div class="mb-4 md:mb-6">
             <label class="block text-gray-700 font-semibold mb-2 font-bengali">
               স্কুলের নাম <span class="text-red-500">*</span>
             </label>
@@ -149,7 +148,7 @@ const handleSubmit = async () => {
           </div>
 
           <!-- School Address -->
-          <div class="mb-6">
+          <div class="mb-4 md:mb-6">
             <label class="block text-gray-700 font-semibold mb-2 font-bengali">
               স্কুলের ঠিকানা <span class="text-red-500">*</span>
             </label>
@@ -163,7 +162,7 @@ const handleSubmit = async () => {
           </div>
 
           <!-- Message -->
-          <div class="mb-6">
+          <div class="mb-4 md:mb-6">
             <label class="block text-gray-700 font-semibold mb-2 font-bengali">
               বার্তা
             </label>
@@ -184,7 +183,6 @@ const handleSubmit = async () => {
             <span v-else>জমা দেওয়া হচ্ছে...</span>
           </button>
         </form>
-      </div>
     </div>
   </section>
 </template>

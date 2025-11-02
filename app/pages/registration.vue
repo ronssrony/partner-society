@@ -16,11 +16,11 @@
     </section>
 
     <!-- Registration Content -->
-    <section class="py-12 bg-gray-50">
+    <section class="py-6 md:py-12 bg-gray-50">
       <div class="container-custom">
-        <div class="grid lg:grid-cols-2 gap-8 items-start">
+        <div class="grid lg:grid-cols-2 gap-6 md:gap-8 items-start">
           <!-- Left Side - Image & Benefits -->
-          <div class="order-2 lg:order-1 space-y-6">
+          <div class="order-1 space-y-4 md:space-y-6">
             <!-- Image -->
             <div class="rounded-2xl overflow-hidden shadow-xl">
               <img
@@ -80,7 +80,7 @@
           </div>
 
           <!-- Right Side - Form -->
-          <div class="order-1 lg:order-2 sticky top-24">
+          <div class="order-2 lg:sticky lg:top-24">
             <SchoolRegistrationForm />
           </div>
         </div>
