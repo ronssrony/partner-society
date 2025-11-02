@@ -142,7 +142,7 @@ onUnmounted(() => {
       <div class="flex items-center justify-between h-20">
         <!-- Logo -->
         <div class="flex-shrink-0">
-          <a href="/" class="flex items-center gap-3">
+          <nuxt-link to="/" class="flex items-center gap-3">
             <img src="/logo.jpg" alt="Partner Society Logo" class="h-14 w-auto" />
             <div class="flex flex-col">
               <span class="text-xl font-bold">
@@ -151,7 +151,7 @@ onUnmounted(() => {
               </span>
               <span class="text-xs text-gray-600 font-bengali">আধুনিক শিক্ষা, সবার জন্য</span>
             </div>
-          </a>
+          </nuxt-link>
         </div>
 
         <!-- Desktop Navigation -->
@@ -161,14 +161,14 @@ onUnmounted(() => {
             :key="link.name"
             class="relative dropdown-container"
           >
-            <a
+            <nuxt-link
               v-if="!link.hasDropdown"
-              :href="link.href"
+              :to="link.href"
               @click="(e) => handleNavClick(e, link.href)"
               class="text-base font-medium text-gray-700 hover:text-[#6B46C1] transition-colors py-2"
             >
               {{ link.name }}
-            </a>
+            </nuxt-link>
 
             <button
               v-else
@@ -197,15 +197,15 @@ onUnmounted(() => {
                 v-if="link.hasDropdown && activeDropdown === link.name"
                 class="absolute top-full left-0 mt-2 w-80 bg-white rounded-lg shadow-xl py-2 z-50 border border-gray-100"
               >
-                <a
+                <nuxt-link
                   v-for="item in link.items"
                   :key="item.name"
-                  :href="item.href"
+                  :to="item.href"
                   @click="(e) => { handleNavClick(e, item.href); closeDropdown(); }"
                   class="block px-4 py-3 text-sm text-gray-700 hover:bg-[#6B46C1] hover:text-white transition-colors"
                 >
                   {{ item.name }}
-                </a>
+                </nuxt-link>
               </div>
             </transition>
           </div>
@@ -213,12 +213,12 @@ onUnmounted(() => {
 
         <!-- CTA Button -->
         <div class="hidden lg:block">
-          <a
-            href="/registration"
+          <nuxt-link
+            to="/registration"
             class="bg-[#6B46C1] hover:bg-[#553399] text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 shadow-md"
           >
             School Registration
-          </a>
+          </nuxt-link>
         </div>
 
         <!-- Mobile menu button -->
@@ -247,14 +247,14 @@ onUnmounted(() => {
         <div class="px-4 pt-2 pb-4 space-y-1 max-h-[calc(100vh-5rem)] overflow-y-auto">
           <template v-for="link in navLinks" :key="link.name">
             <!-- Simple Link -->
-            <a
+            <nuxt-link
               v-if="!link.hasDropdown"
-              :href="link.href"
+              :to="link.href"
               @click="(e) => { handleNavClick(e, link.href); toggleMobileMenu(); }"
               class="block px-4 py-3 text-base font-medium text-gray-700 hover:bg-[#6B46C1]/10 hover:text-[#6B46C1] rounded-lg transition-colors"
             >
               {{ link.name }}
-            </a>
+            </nuxt-link>
 
             <!-- Dropdown Link -->
             <div v-else class="space-y-1">
@@ -280,27 +280,27 @@ onUnmounted(() => {
                 leave-to-class="opacity-0 -translate-y-2"
               >
                 <div v-if="activeDropdown === link.name" class="pl-4 space-y-1">
-                  <a
+                  <nuxt-link
                     v-for="item in link.items"
                     :key="item.name"
-                    :href="item.href"
+                    :to="item.href"
                     @click="(e) => { handleNavClick(e, item.href); toggleMobileMenu(); }"
                     class="block px-4 py-2 text-sm text-gray-600 hover:bg-[#6B46C1]/10 hover:text-[#6B46C1] rounded-lg transition-colors"
                   >
                     {{ item.name }}
-                  </a>
+                  </nuxt-link>
                 </div>
               </transition>
             </div>
           </template>
 
-          <a
-            href="/registration"
+          <nuxt-link
+            to="/registration"
             class="block bg-[#6B46C1] hover:bg-[#553399] text-white px-4 py-3 rounded-lg font-semibold text-center transition-colors mt-4"
             @click="toggleMobileMenu"
           >
             School Registration
-          </a>
+          </nuxt-link>
         </div>
       </div>
     </transition>
