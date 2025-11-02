@@ -46,7 +46,23 @@ const toggleMobileMenu = () => {
 }
 
 const toggleDropdown = (name: string) => {
-  activeDropdown.value = activeDropdown.value === name ? null : name
+  // If clicking the same dropdown, just close it
+  if (activeDropdown.value === name) {
+    activeDropdown.value = null
+    return
+  }
+
+  // If switching to a different dropdown, close the current one first
+  if (activeDropdown.value !== null && activeDropdown.value !== name) {
+    activeDropdown.value = null
+    // Wait for close animation to complete before opening new one
+    setTimeout(() => {
+      activeDropdown.value = name
+    }, 200) // Matches the leave transition duration
+  } else {
+    // No dropdown is open, just open the new one
+    activeDropdown.value = name
+  }
 }
 
 const closeDropdown = () => {
@@ -257,7 +273,7 @@ onUnmounted(() => {
             </nuxt-link>
 
             <!-- Dropdown Link -->
-            <div v-else class="space-y-1">
+            <div v-else class="space-y-1 dropdown-container">
               <button
                 @click="toggleDropdown(link.name)"
                 class="w-full flex items-center justify-between px-4 py-3 text-base font-medium text-gray-700 hover:bg-[#6B46C1]/10 hover:text-[#6B46C1] rounded-lg transition-colors"

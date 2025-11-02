@@ -268,7 +268,7 @@ onUnmounted(() => {
           <p class="text-gray-600 font-semibold text-xs uppercase tracking-wide mb-1">
             {{ stat.label }}
           </p>
-          <p class="text-gray-500 font-bengali text-xs">
+          <p class="text-gray-500 font-semibold text-xs">
             {{ stat.labelBengali }}
           </p>
         </div>
