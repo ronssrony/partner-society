@@ -77,33 +77,35 @@ const activities = [
         class="pb-12"
       >
         <SwiperSlide v-for="activity in activities" :key="activity.id">
-          <div class="group bg-white rounded-2xl overflow-hidden border-2 border-brand-100 hover:border-brand-500 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-500/10">
-            <div class="relative aspect-[3/2] overflow-hidden">
-              <img
-                :src="activity.image"
-                :alt="activity.title"
-                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                loading="lazy"
-              />
-              <div class="absolute top-4 right-4 bg-brand-100 text-brand-700 px-3 py-1 rounded-full text-sm font-semibold">
-                {{ activity.date }}
+          <NuxtLink :to="`/activities/${activity.id}`" class="block h-full">
+            <div class="group bg-white rounded-2xl overflow-hidden border-2 border-brand-100 hover:border-brand-500 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-brand-500/10 h-full flex flex-col cursor-pointer">
+              <div class="relative aspect-[3/2] overflow-hidden flex-shrink-0">
+                <img
+                  :src="activity.image"
+                  :alt="activity.title"
+                  class="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-500"
+                  loading="lazy"
+                />
+                <div class="absolute top-4 right-4 bg-brand-100 text-brand-700 px-3 py-1 rounded-full text-sm font-semibold">
+                  {{ activity.date }}
+                </div>
+              </div>
+              <div class="p-6 flex-grow flex flex-col">
+                <h3 class="text-xl font-bold text-brand-900 mb-3">
+                  {{ activity.title }}
+                </h3>
+                <p class="text-gray-600 mb-4 line-clamp-3 flex-grow">
+                  {{ activity.description }}
+                </p>
+                <div class="inline-flex items-center text-brand-600 group-hover:text-brand-700 font-semibold transition-colors">
+                  Read More
+                  <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
               </div>
             </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-brand-900 mb-3">
-                {{ activity.title }}
-              </h3>
-              <p class="text-gray-600 mb-4 line-clamp-3">
-                {{ activity.description }}
-              </p>
-              <a href="#" class="inline-flex items-center text-brand-600 hover:text-brand-700 font-semibold transition-colors">
-                Read More
-                <svg class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </a>
-            </div>
-          </div>
+          </NuxtLink>
         </SwiperSlide>
       </Swiper>
     </div>

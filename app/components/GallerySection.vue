@@ -52,7 +52,7 @@ const prevImage = () => {
             <img
               :src="image.url"
               :alt="image.caption"
-              class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-300"
+              class="w-full h-64 object-cover object-top transform group-hover:scale-110 transition-transform duration-300"
             />
             <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
               <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
 const activities = [
   {
     id: 1,
@@ -63,18 +61,6 @@ const activities = [
     fullDescription: 'স্থানীয় সম্প্রদায়ের জন্য বিনামূল্যে স্বাস্থ্য পরীক্ষা, শিক্ষা পরামর্শ এবং সচেতনতামূলক সেমিনার আয়োজন করা হয়েছে যেখানে ৫০০+ মানুষ উপকৃত হয়েছেন।'
   }
 ]
-
-const selectedActivity = ref<typeof activities[0] | null>(null)
-
-const openDetails = (activity: typeof activities[0]) => {
-  selectedActivity.value = activity
-  document.body.style.overflow = 'hidden'
-}
-
-const closeDetails = () => {
-  selectedActivity.value = null
-  document.body.style.overflow = 'auto'
-}
 </script>
 
 <template>
@@ -89,18 +75,18 @@ const closeDetails = () => {
 
       <!-- Activity Cards Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-        <div
+        <NuxtLink
           v-for="activity in activities"
           :key="activity.id"
-          @click="openDetails(activity)"
-          class="card overflow-hidden cursor-pointer group hover:shadow-xl transition-all duration-300"
+          :to="`/activities/${activity.id}`"
+          class="card overflow-hidden cursor-pointer group hover:shadow-xl transition-all duration-300 block"
         >
           <!-- Image -->
           <div class="relative overflow-hidden h-56">
             <img
               :src="activity.image"
               :alt="activity.titleBengali"
-              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-300"
+              class="w-full h-full object-cover object-top transform group-hover:scale-110 transition-transform duration-300"
             />
             <!-- Badge -->
             <div class="absolute top-4 left-4">
@@ -136,80 +122,8 @@ const closeDetails = () => {
               </svg>
             </div>
           </div>
-        </div>
+        </NuxtLink>
       </div>
     </div>
-
-    <!-- Detail Modal -->
-    <transition
-      enter-active-class="transition duration-300 ease-out"
-      enter-from-class="opacity-0"
-      enter-to-class="opacity-100"
-      leave-active-class="transition duration-200 ease-in"
-      leave-from-class="opacity-100"
-      leave-to-class="opacity-0"
-    >
-      <div
-        v-if="selectedActivity"
-        @click="closeDetails"
-        class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4 overflow-y-auto"
-      >
-        <div
-          @click.stop
-          class="bg-white rounded-2xl max-w-3xl w-full my-8 overflow-hidden shadow-2xl transform transition-all"
-        >
-          <!-- Modal Header Image -->
-          <div class="relative h-96">
-            <img
-              :src="selectedActivity.image"
-              :alt="selectedActivity.titleBengali"
-              class="w-full h-full object-cover"
-            />
-            <!-- Close Button -->
-            <button
-              @click="closeDetails"
-              class="absolute top-4 right-4 bg-white/90 hover:bg-white rounded-full p-2 transition-colors"
-            >
-              <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            </button>
-            <!-- Badge -->
-            <div class="absolute top-4 left-4">
-              <span class="px-4 py-2 bg-[#6B46C1] text-white text-sm font-semibold rounded-full">
-                {{ selectedActivity.badge }}
-              </span>
-            </div>
-          </div>
-
-          <!-- Modal Content -->
-          <div class="p-8">
-            <!-- Date -->
-            <p class="text-sm text-gray-500 font-bengali mb-4">{{ selectedActivity.date }}</p>
-
-            <!-- Title -->
-            <h2 class="text-3xl font-bold text-gray-900 mb-3">
-              {{ selectedActivity.title }}
-            </h2>
-            <h3 class="text-2xl text-[#6B46C1] font-bengali font-bold mb-6">
-              {{ selectedActivity.titleBengali }}
-            </h3>
-
-            <!-- Full Description -->
-            <p class="text-gray-700 font-bengali leading-relaxed text-lg mb-6">
-              {{ selectedActivity.fullDescription }}
-            </p>
-
-            <!-- Close Button -->
-            <button
-              @click="closeDetails"
-              class="w-full bg-[#6B46C1] hover:bg-[#553399] text-white px-6 py-3 rounded-lg font-semibold transition-colors"
-            >
-              বন্ধ করুন
-            </button>
-          </div>
-        </div>
-      </div>
-    </transition>
   </section>
 </template>
