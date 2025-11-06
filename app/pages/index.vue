@@ -28,11 +28,13 @@ onMounted(() => {
   <div class="min-h-screen bg-white">
     <Navbar />
     <HeroPartnerSociety />
+    <HeroImageSlider />
     <ProgramsSection />
     <EventsActivities />
     <NoticeSection />
     <SchoolListSection />
     <GallerySection />
+    <LeadershipSection />
     <ContactSection />
     <Footer />
   </div>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-// Generate image array from 36 images
-const images = Array.from({ length: 36 }, (_, i) => ({
+// Generate image array from 12 images
+const images = Array.from({ length: 12 }, (_, i) => ({
   url: `/images/image-${i + 1}.jpeg`,
   caption: `Gallery Image ${i + 1}`
 }))

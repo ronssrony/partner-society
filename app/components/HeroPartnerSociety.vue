@@ -1,19 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-
-// Hero images - using images from public/images
-const heroImages = [
-  '/images/image-7.jpeg',
-  '/images/image-8.jpeg',
-  '/images/image-9.jpeg',
-  '/images/image-10.jpeg',
-  '/images/image-11.jpeg',
-]
-
-const currentImageIndex = ref(0)
-const isHovered = ref(false)
-const isPaused = ref(false)
-let autoplayInterval: ReturnType<typeof setInterval> | null = null
+import { ref, onMounted } from 'vue'
 
 // Stats with counters
 const stats = [
@@ -63,50 +49,7 @@ const animateValue = (index: number, start: number, end: number, duration: numbe
   }, stepTime)
 }
 
-// Start autoplay
-const startAutoplay = () => {
-  if (autoplayInterval) clearInterval(autoplayInterval)
-  autoplayInterval = setInterval(() => {
-    if (!isPaused.value) {
-      nextSlide()
-    }
-  }, 4000)
-}
-
-// Stop autoplay
-const stopAutoplay = () => {
-  if (autoplayInterval) {
-    clearInterval(autoplayInterval)
-    autoplayInterval = null
-  }
-}
-
-const nextSlide = () => {
-  currentImageIndex.value = (currentImageIndex.value + 1) % heroImages.length
-}
-
-const prevSlide = () => {
-  currentImageIndex.value = (currentImageIndex.value - 1 + heroImages.length) % heroImages.length
-}
-
-const goToSlide = (index: number) => {
-  currentImageIndex.value = index
-}
-
-const handleMouseEnter = () => {
-  isHovered.value = true
-  isPaused.value = true
-}
-
-const handleMouseLeave = () => {
-  isHovered.value = false
-  isPaused.value = false
-}
-
 onMounted(() => {
-  // Start autoplay
-  startAutoplay()
-
   // Animate counters
   if (!hasAnimated.value) {
     hasAnimated.value = true
@@ -117,313 +60,193 @@ onMounted(() => {
     })
   }
 })
-
-onUnmounted(() => {
-  stopAutoplay()
-})
 </script>
 
 <template>
-  <section id="home" class="relative min-h-[85vh] md:min-h-[90vh] bg-gradient-to-br from-purple-50 via-purple-100 to-purple-50 pt-24 md:pt-24 pb-12 md:pb-16 ">
+  <section id="home" class="relative min-h-[90vh] bg-gradient-to-br from-gray-900 via-[#2D1B4E] to-gray-900 pt-24 md:pt-32 pb-16 overflow-hidden">
     <div class="container-custom">
       <!-- Desktop Layout (lg and above) -->
-      <div class="hidden lg:grid lg:grid-cols-2 gap-12 items-center">
+      <div class="hidden lg:grid lg:grid-cols-2 gap-16 items-center min-h-[70vh]">
         <!-- Left Content -->
-        <div class="space-y-8">
-          <!-- Intro Text -->
-          <div class="space-y-6">
-            <p class="text-xl lg:text-2xl text-gray-700 font-bengali leading-relaxed">
-              <span class="text-[#EF4444] font-bold">Partner</span> <span class="text-[#6B46C1] font-bold">Society</span> BD একটি <span class="text-[#6B46C1] font-bold">কিন্ডারগার্ডেন সোসাইটি</span>, আধুনিক শিক্ষামূলক প্রতিষ্ঠান, মেধাবী শিক্ষার্থীদের বৃত্তিমূলক কার্যক্রম পরিচালনা করা, বিভিন্ন সহায়ক বই প্রকাশ এবং দক্ষতা উন্নয়নের মাধ্যমে শিক্ষার গুণগত মান নিশ্চিত করাই আমাদের মূল লক্ষ্য!
+        <div class="space-y-8 z-10">
+          <!-- Small Header -->
+          <div>
+            <p class="text-[#A78BFA] uppercase tracking-widest text-sm font-semibold mb-6">
+              শিক্ষায় পরিবর্তন আনুন
             </p>
           </div>
 
+          <!-- Main Heading -->
+          <div class="space-y-4">
+            <h1 class="text-5xl md:text-6xl font-extrabold leading-tight">
+              <span class="text-white">আপনার </span>
+              <span class="text-[#EF4444]">হৃদয়</span>
+              <br />
+              <span class="text-white">দিয়ে পরিবর্তন করুন</span>
+              <br />
+              <span class="text-white">একটি </span>
+              <span class="text-[#EF4444]">শিশুর</span>
+              <span class="text-white"> গল্প</span>
+            </h1>
+          </div>
+
+          <!-- Description -->
+          <p class="text-gray-300 text-lg leading-relaxed font-bengali max-w-xl">
+            আমাদের মিশনে যোগ দিন এবং আপনার প্রচেষ্টা অসহায় শিশুদের সাহায্য করুন। আপনার দান প্রয়োজনীয় যত্ন এবং আশা প্রদান করে।
+          </p>
+
           <!-- CTA Buttons -->
-          <div class="flex flex-wrap gap-3">
+          <div class="flex flex-wrap gap-4 pt-4">
             <a
               href="#programs"
-              class="bg-[#6B46C1] hover:bg-[#553399] text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg inline-block text-base"
+              class="bg-[#EF4444] hover:bg-[#DC2626] text-white px-8 py-4 rounded-lg font-bold uppercase text-sm tracking-wide transition-all duration-300 hover:scale-105 shadow-lg inline-block"
             >
-              Learn More
+              দান করুন
             </a>
             <a
               href="/registration"
-              class="border-2 border-[#6B46C1] text-[#6B46C1] hover:bg-[#6B46C1] hover:text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 hover:scale-105 inline-block text-base"
+              class="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-lg font-bold uppercase text-sm tracking-wide transition-all duration-300 hover:scale-105 inline-block"
             >
-              Apply Now
+              আরও জানুন
             </a>
           </div>
         </div>
 
-        <!-- Right Side - Image Slider -->
-        <div
-          class="relative group"
-          @mouseenter="handleMouseEnter"
-          @mouseleave="handleMouseLeave"
-        >
-          <div class="rounded-2xl overflow-hidden shadow-2xl">
-            <!-- Image Container -->
-            <div class="relative h-[600px] overflow-hidden">
-              <!-- Images -->
-              <div
-                v-for="(image, index) in heroImages"
-                :key="index"
-                :class="[
-                  'absolute inset-0 transition-transform duration-700 ease-in-out',
-                  currentImageIndex === index ? 'translate-x-0 z-10' :
-                  currentImageIndex > index ? '-translate-x-full z-0' : 'translate-x-full z-0'
-                ]"
-              >
-                <img
-                  :src="image"
-                  :alt="`Hero Image ${index + 1}`"
-                  class="w-full h-full object-cover"
-                />
-                <!-- Gradient Overlay -->
-                <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-              </div>
-
-              <!-- Navigation Buttons - Show on Hover -->
-              <transition
-                enter-active-class="transition duration-300 ease-out"
-                enter-from-class="opacity-0"
-                enter-to-class="opacity-100"
-                leave-active-class="transition duration-200 ease-in"
-                leave-from-class="opacity-100"
-                leave-to-class="opacity-0"
-              >
-                <div v-show="isHovered" class="absolute inset-0 z-20 flex items-center justify-between px-4">
-                  <!-- Previous Button -->
-                  <button
-                    @click="prevSlide"
-                    class="bg-white/90 hover:bg-white text-[#6B46C1] rounded-full p-3 shadow-lg transform hover:scale-110 transition-all duration-300"
-                  >
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                  </button>
-
-                  <!-- Next Button -->
-                  <button
-                    @click="nextSlide"
-                    class="bg-white/90 hover:bg-white text-[#6B46C1] rounded-full p-3 shadow-lg transform hover:scale-110 transition-all duration-300"
-                  >
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                  </button>
-                </div>
-              </transition>
-
-              <!-- Pagination Dots -->
-              <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-3 z-20">
-                <button
-                  v-for="(image, index) in heroImages"
-                  :key="index"
-                  @click="goToSlide(index)"
-                  :class="[
-                    'transition-all duration-300 rounded-full',
-                    currentImageIndex === index
-                      ? 'w-10 h-3 bg-[#6B46C1]'
-                      : 'w-3 h-3 bg-white/50 hover:bg-white/80'
-                  ]"
-                ></button>
-              </div>
+        <!-- Right Side - Hero Image -->
+        <div class="relative z-10">
+          <div class="relative rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
+            <!-- Main Image Display -->
+            <div class="relative aspect-[4/3]">
+              <img
+                src="/images/image-9.jpeg"
+                alt="Partner Society Students"
+                class="w-full h-full object-cover"
+              />
+              <!-- Subtle Overlay Gradient -->
+              <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
             </div>
           </div>
 
           <!-- Decorative Elements -->
-          <div class="absolute -top-6 -right-6 w-24 h-24 bg-[#6B46C1] rounded-full opacity-20 blur-2xl"></div>
-          <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-purple-300 rounded-full opacity-20 blur-2xl"></div>
-        </div>
-      </div>
-
-      <!-- Desktop Stats Counter -->
-      <div class="hidden lg:grid grid-cols-3 gap-4 py-6 justify-center mx-auto max-w-4xl">
-        <div
-            v-for="(stat, index) in stats"
-            :key="stat.id"
-            class="text-center group"
-        >
-          <!-- Icon Circle -->
-          <div
-              class="w-16 h-16 mx-auto mb-3 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300"
-              :style="{ backgroundColor: stat.color + '20' }"
-          >
-            <span class="text-3xl">{{ stat.icon }}</span>
-          </div>
-
-          <!-- Counter -->
-          <div class="mb-1">
-                <span
-                    class="text-3xl md:text-4xl font-bold"
-                    :style="{ color: stat.color }"
-                >
-                  {{ counters[index] }}{{ stat.suffix || '' }}
-                </span>
-          </div>
-
-          <!-- Label -->
-          <p class="text-gray-600 font-semibold text-xs uppercase tracking-wide mb-1">
-            {{ stat.label }}
-          </p>
-          <p class="text-gray-500 font-semibold text-xs">
-            {{ stat.labelBengali }}
-          </p>
+          <div class="absolute -top-8 -right-8 w-32 h-32 bg-[#6B46C1] rounded-full opacity-20 blur-3xl"></div>
+          <div class="absolute -bottom-8 -left-8 w-40 h-40 bg-[#EF4444] rounded-full opacity-20 blur-3xl"></div>
         </div>
       </div>
 
       <!-- Mobile Layout (below lg) -->
-      <div class="lg:hidden space-y-6">
-        <!-- Mobile Intro Text - Shorter version -->
-        <div class="text-center">
-          <p class="text-lg md:text-xl text-gray-700 font-bengali leading-relaxed">
-            <span class="text-[#EF4444] font-bold">Partner</span> <span class="text-[#6B46C1] font-bold">Society</span> BD <br> আধুনিক শিক্ষার মাধ্যমে সমাজ উন্নয়নে প্রতিশ্রুতিবদ্ধ
+      <div class="lg:hidden space-y-8">
+        <!-- Mobile Content -->
+        <div class="space-y-6 text-center z-10 relative">
+          <!-- Small Header -->
+          <p class="text-[#A78BFA] uppercase tracking-widest text-xs font-semibold">
+            শিক্ষায় পরিবর্তন আনুন
+          </p>
+
+          <!-- Main Heading -->
+          <h1 class="text-3xl md:text-4xl font-extrabold leading-tight">
+            <span class="text-white">আপনার </span>
+            <span class="text-[#EF4444]">হৃদয়</span>
+            <br />
+            <span class="text-white">দিয়ে পরিবর্তন করুন</span>
+            <br />
+            <span class="text-white">একটি </span>
+            <span class="text-[#EF4444]">শিশুর</span>
+            <span class="text-white"> গল্প</span>
+          </h1>
+
+          <!-- Description -->
+          <p class="text-gray-300 text-base leading-relaxed font-bengali">
+            আমাদের মিশনে যোগ দিন এবং আপনার প্রচেষ্টা অসহায় শিশুদের সাহায্য করুন।
           </p>
         </div>
 
-        <!-- Mobile Image Slider -->
-        <div
-          class="relative group"
-          @mouseenter="handleMouseEnter"
-          @mouseleave="handleMouseLeave"
-        >
-          <div class="rounded-2xl overflow-hidden shadow-2xl">
-            <!-- Image Container -->
-            <div class="relative h-[400px] md:h-[500px] overflow-hidden">
-              <!-- Images -->
-              <div
-                v-for="(image, index) in heroImages"
-                :key="index"
-                :class="[
-                  'absolute inset-0 transition-transform duration-700 ease-in-out',
-                  currentImageIndex === index ? 'translate-x-0 z-10' :
-                  currentImageIndex > index ? '-translate-x-full z-0' : 'translate-x-full z-0'
-                ]"
-              >
-                <img
-                  :src="image"
-                  :alt="`Hero Image ${index + 1}`"
-                  class="w-full h-full object-cover"
-                />
-                <!-- Gradient Overlay -->
-                <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-              </div>
-
-              <!-- Navigation Buttons - Show on Hover -->
-              <transition
-                enter-active-class="transition duration-300 ease-out"
-                enter-from-class="opacity-0"
-                enter-to-class="opacity-100"
-                leave-active-class="transition duration-200 ease-in"
-                leave-from-class="opacity-100"
-                leave-to-class="opacity-0"
-              >
-                <div v-show="isHovered" class="absolute inset-0 z-20 flex items-center justify-between px-4">
-                  <!-- Previous Button -->
-                  <button
-                    @click="prevSlide"
-                    class="bg-white/90 hover:bg-white text-[#6B46C1] rounded-full p-3 shadow-lg transform hover:scale-110 transition-all duration-300"
-                  >
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                  </button>
-
-                  <!-- Next Button -->
-                  <button
-                    @click="nextSlide"
-                    class="bg-white/90 hover:bg-white text-[#6B46C1] rounded-full p-3 shadow-lg transform hover:scale-110 transition-all duration-300"
-                  >
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                  </button>
-                </div>
-              </transition>
-
-              <!-- Pagination Dots -->
-              <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex gap-3 z-20">
-                <button
-                  v-for="(image, index) in heroImages"
-                  :key="index"
-                  @click="goToSlide(index)"
-                  :class="[
-                    'transition-all duration-300 rounded-full',
-                    currentImageIndex === index
-                      ? 'w-10 h-3 bg-[#6B46C1]'
-                      : 'w-3 h-3 bg-white/50 hover:bg-white/80'
-                  ]"
-                ></button>
-              </div>
+        <!-- Mobile Hero Image -->
+        <div class="relative">
+          <div class="relative rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
+            <div class="relative aspect-[16/10]">
+              <img
+                src="/images/image-9.jpeg"
+                alt="Partner Society Students"
+                class="w-full h-full object-cover"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
             </div>
-          </div>
-
-          <!-- Decorative Elements -->
-          <div class="absolute -top-6 -right-6 w-24 h-24 bg-[#6B46C1] rounded-full opacity-20 blur-2xl"></div>
-          <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-purple-300 rounded-full opacity-20 blur-2xl"></div>
-        </div>
-
-        <!-- Mobile Stats Counter -->
-        <div class="grid grid-cols-3 gap-3 md:gap-4 py-4 justify-center mx-auto max-w-4xl">
-          <div
-            v-for="(stat, index) in stats"
-            :key="`mobile-${stat.id}`"
-            class="text-center group"
-          >
-            <!-- Icon Circle -->
-            <div
-              class="w-16 h-16 mx-auto mb-3 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300"
-              :style="{ backgroundColor: stat.color + '20' }"
-            >
-              <span class="text-3xl">{{ stat.icon }}</span>
-            </div>
-
-            <!-- Counter -->
-            <div class="mb-1">
-              <span
-                class="text-3xl md:text-4xl font-bold"
-                :style="{ color: stat.color }"
-              >
-                {{ counters[index] }}{{ stat.suffix || '' }}
-              </span>
-            </div>
-
-            <!-- Label -->
-            <p class="text-gray-600 font-semibold text-xs uppercase tracking-wide mb-1">
-              {{ stat.label }}
-            </p>
-            <p class="text-gray-500 font-semibold text-xs">
-              {{ stat.labelBengali }}
-            </p>
           </div>
         </div>
 
         <!-- Mobile CTA Buttons -->
-        <div class="flex flex-wrap gap-3 justify-center">
+        <div class="flex flex-col gap-3 max-w-sm mx-auto">
           <a
             href="#programs"
-            class="bg-[#6B46C1] hover:bg-[#553399] text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 shadow-lg inline-block text-sm"
+            class="bg-[#EF4444] hover:bg-[#DC2626] text-white px-8 py-4 rounded-lg font-bold uppercase text-sm tracking-wide transition-all duration-300 text-center"
           >
-            Learn More
+            দান করুন
           </a>
           <a
             href="/registration"
-            class="border-2 border-[#6B46C1] text-[#6B46C1] hover:bg-[#6B46C1] hover:text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 inline-block text-sm"
+            class="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 rounded-lg font-bold uppercase text-sm tracking-wide transition-all duration-300 text-center"
           >
-            Apply Now
+            আরও জানুন
           </a>
+        </div>
+      </div>
+
+      <!-- Stats Counter Section (Below Hero) -->
+      <div class="grid grid-cols-3 gap-4 md:gap-6 pt-16 md:pt-20 justify-center mx-auto max-w-4xl z-10 relative">
+        <div
+          v-for="(stat, index) in stats"
+          :key="stat.id"
+          class="text-center group"
+        >
+          <!-- Icon Circle -->
+          <div
+            class="w-14 h-14 md:w-16 md:h-16 mx-auto mb-3 rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 backdrop-blur-sm"
+            :style="{ backgroundColor: stat.color + '40' }"
+          >
+            <span class="text-2xl md:text-3xl">{{ stat.icon }}</span>
+          </div>
+
+          <!-- Counter -->
+          <div class="mb-1">
+            <span
+              class="text-3xl md:text-4xl font-bold text-white"
+            >
+              {{ counters[index] }}{{ stat.suffix || '' }}
+            </span>
+          </div>
+
+          <!-- Label -->
+          <p class="text-gray-300 font-semibold text-xs uppercase tracking-wide mb-1">
+            {{ stat.label }}
+          </p>
+          <p class="text-gray-400 font-semibold text-xs font-bengali">
+            {{ stat.labelBengali }}
+          </p>
         </div>
       </div>
     </div>
 
-    <!-- Floating Background Shapes -->
-    <div class="absolute top-20 left-10 w-20 h-20 bg-purple-200 rounded-full opacity-30 blur-xl animate-pulse"></div>
-    <div class="absolute bottom-20 right-10 w-32 h-32 bg-purple-300 rounded-full opacity-20 blur-2xl animate-pulse delay-1000"></div>
+    <!-- Static Background Elements -->
+    <div class="absolute top-20 left-10 w-32 h-32 bg-[#6B46C1] rounded-full opacity-10 blur-3xl"></div>
+    <div class="absolute top-40 right-20 w-40 h-40 bg-[#EF4444] rounded-full opacity-10 blur-3xl"></div>
+    <div class="absolute bottom-32 left-1/4 w-48 h-48 bg-[#A78BFA] rounded-full opacity-10 blur-3xl"></div>
+
+    <!-- Animated Star Pattern Overlay -->
+    <div class="absolute inset-0 opacity-5 star-pattern" style="background-image: radial-gradient(circle, #ffffff 1px, transparent 1px); background-size: 50px 50px;"></div>
   </section>
 </template>
 
 <style scoped>
-.delay-1000 {
-  animation-delay: 1000ms;
+@keyframes starBlink {
+  0%, 100% {
+    opacity: 0.05;
+  }
+  50% {
+    opacity: 0.08;
+  }
+}
+
+.star-pattern {
+  animation: starBlink 3s ease-in-out infinite;
 }
 </style>
